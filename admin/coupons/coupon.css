@@ -55,7 +55,7 @@
 /* Specific Buttons */
 .btn-primary {
     background-color: var(--primaryColor);
-    color: white;
+    color: white ;
 }
 
 .btn-primary:hover {
