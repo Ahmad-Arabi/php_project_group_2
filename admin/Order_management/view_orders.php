@@ -59,7 +59,6 @@ $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 </head>
 
-
 <body>
 
   <!-- Navbar -->
