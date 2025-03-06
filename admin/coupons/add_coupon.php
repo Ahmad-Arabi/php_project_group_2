@@ -50,6 +50,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 <body>
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 7455ddc9d976f641fd5c95f2e826a51c3e0c19d3
 <div class="container-fluid">
     <div class="row">
 <?php include('navbar.php'); ?>

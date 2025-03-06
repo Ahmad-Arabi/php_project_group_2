@@ -18,12 +18,20 @@
               </a>
             </li>
             <li class="nav-item">
+<<<<<<< HEAD
+              <a class="nav-link" href="../../admin/product/product.php">
+=======
               <a class="nav-link" href="products.php">
+>>>>>>> 7455ddc9d976f641fd5c95f2e826a51c3e0c19d3
                 <i class="bi bi-box-seam"></i> Product Management
               </a>
             </li>
             <li class="nav-item">
+<<<<<<< HEAD
+              <a class="nav-link" href="../../admin/category/category.php">
+=======
               <a class="nav-link" href="categories.php">
+>>>>>>> 7455ddc9d976f641fd5c95f2e826a51c3e0c19d3
                 <i class="bi bi-tags-fill"></i> Category Management
               </a>
             </li>

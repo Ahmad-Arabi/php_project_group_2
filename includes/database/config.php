@@ -1,8 +1,15 @@
 <?php
+<<<<<<< HEAD
+$host = 'localhost';  
+$dbname = 'ecommerce';  
+$username = 'root';  
+$password = '';  
+=======
 $host = 'localhost';  // Database host (e.g., 127.0.0.1)
 $dbname = 'ecommerce';  // Your database name
 $username = 'root';  // Your database username
 $password = '';  // Your database password
+>>>>>>> 7455ddc9d976f641fd5c95f2e826a51c3e0c19d3
 
 try {
     // Create a PDO instance (connection)
