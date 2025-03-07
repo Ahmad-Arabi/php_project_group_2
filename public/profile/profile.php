@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
             $profile_picture_name = $_FILES['image']['name'];
             $profile_picture_tmp_name = $_FILES['image']['tmp_name'];
-            $image_directory = './profile_picture/';
+            $image_directory = '../../uploads/avatars/';
             $profile_picture_path = $image_directory . basename($profile_picture_name);
 
             if (move_uploaded_file($profile_picture_tmp_name, $profile_picture_path)) {
@@ -161,7 +161,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="tab-content">
                         <div class="tab-pane fade active show" id="account-general">
                             <div class="card-body media align-items-center">
-                                <img src="<?php echo $user['profile_picture'] ? $user['profile_picture'] : 'profile_picture/default-profile.png'; ?>" alt="Profile Image" class="d-block ui-w-80">
+                                <img src="<?php echo $user['profile_picture'] ? $user['profile_picture'] : '../../uploads/default-avatar.png'; ?>" alt="Profile Image" class="d-block ui-w-80">
                                 <div class="media-body ml-4">
                                     <label class="btn btn-outline-primary">
                                         Upload new photo
