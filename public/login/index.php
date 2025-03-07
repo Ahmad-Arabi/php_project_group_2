@@ -20,9 +20,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($user['role'] === 'superadmin' || $user['role'] === 'admin') {
             header("Location: ../../admin/home/index.php");
         } else {
-            header("Location: ../home/index.php");
+            header("Location: ../furni-ed/index.html");
         }
-        exit();
         exit();
     } else {
         $errorMessage = "Invalid email or password.";

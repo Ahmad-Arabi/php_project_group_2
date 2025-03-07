@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             setUserSession($user);
 
-            header("Location: ../home/index.php");
+            header("Location: ../furni-ed/index.html");
             exit();
         } else {
             $message = "Failed to log in after registration.";
