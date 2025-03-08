@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Checkout - Craftify</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+    <link href="../../includes/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../includes/css/style.css" rel="stylesheet">
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
 </head>
@@ -33,7 +33,7 @@
 <div class="container py-5">
     <h1 class="mb-4">Checkout</h1>
 
-    <form action="php/checkout.php" method="POST">
+    <form action="checkout.php" method="POST">
 
         <div class="row">
             <div class="col-md-6">
@@ -174,7 +174,7 @@
 
 <script>
     // Load user details when page loads
-    fetch('php/get_user_details.php')
+    fetch('get_user_details.php')
         .then(response => response.json())
         .then(data => {
             if (data.success) {
@@ -186,7 +186,7 @@
         });
 
     // Load cart details
-    fetch('php/get_cart.php')
+    fetch('get_cart.php')
     .then(response => response.json())
     .then(data => {
     const cartItems = document.getElementById('cartItems');
@@ -207,7 +207,7 @@
 
 function applyCoupon() {
     const couponCode = document.getElementById('coupon_code').value;
-    fetch('php/apply_coupon.php', {
+    fetch('apply_coupon.php', {
         method: 'POST',
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
         body: 'coupon_code=' + encodeURIComponent(couponCode)

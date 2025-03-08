@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once '../../../includes/database/config.php';
+require_once '../../includes/database/config.php';
 
 // Prepare response array
 $response = [
@@ -21,8 +21,8 @@ if (!isset($_SESSION['user_id'])) {
 // Get user_id from session
 $user_id = $_SESSION['user_id'];
 
-// Fetch the pending order for the user
-$stmt = $pdo->prepare("SELECT id, total_price FROM orders WHERE user_id = :user_id AND status = 'pending'");
+// Fetch the latest pending order for the user
+$stmt = $pdo->prepare("SELECT id, total_price FROM orders WHERE user_id = :user_id AND status = 'pending' ORDER BY id DESC LIMIT 1");
 $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
 $stmt->execute();
 $order = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -35,11 +35,11 @@ if (!$order) {
 
 // Calculate the original total price from the order_items table
 $order_id = $order['id'];
-$stmt = $pdo->prepare("SELECT SUM(quantity * price) AS original_total FROM order_items WHERE order_id = :order_id");
+$stmt = $pdo->prepare("SELECT COALESCE(SUM(quantity * price), 0) AS original_total FROM order_items WHERE order_id = :order_id");
 $stmt->bindValue(':order_id', $order_id, PDO::PARAM_INT);
 $stmt->execute();
 $total = $stmt->fetch(PDO::FETCH_ASSOC);
-$original_total = $total['original_total'];
+$original_total = $total['original_total'] ?? 0; // Ensure it's not NULL
 
 $response['original_total'] = $original_total;
 
@@ -59,7 +59,7 @@ if (!$coupon) {
     $response['message'] = 'This coupon has expired.';
 } else {
     // Apply discount if coupon is valid
-    $discount_value = $coupon['discount_value'];
+    $discount_value = $coupon['discount_value'] ?? 0;
 
     // Ensure discount does not exceed original total
     if ($discount_value > $original_total) {
@@ -67,12 +67,7 @@ if (!$coupon) {
     }
 
     // Calculate new total
-    $new_total = $original_total - $discount_value;
-
-    // Ensure total is not negative
-    if ($new_total < 0) {
-        $new_total = 0;
-    }
+    $new_total = max($original_total - $discount_value, 0); // Ensure total is not negative
 
     // Success response
     $response['success'] = true;

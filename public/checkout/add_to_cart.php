@@ -2,6 +2,7 @@
 session_start();
 require_once '../../includes/database/config.php';
 
+
 // التحقق من إذا كان المستخدم قد سجل الدخول
 if (!isset($_SESSION['user_id'])) {
     echo "You must be logged in to add items to your cart.";
