@@ -11,24 +11,6 @@
 </head>
 <body>
 
-<nav class="custom-navbar navbar navbar-expand-md navbar-dark bg-dark">
-    <div class="container">
-        <a class="navbar-brand" href="index.html">Craftify<span>.</span></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsCraftify">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarsCraftify">
-            <ul class="navbar-nav ms-auto">
-                <li><a class="nav-link" href="index.html">Home</a></li>
-                <li><a class="nav-link" href="shop.html">Shop</a></li>
-                <li><a class="nav-link" href="about.html">About us</a></li>
-                <li><a class="nav-link" href="services.html">Services</a></li>
-                <li><a class="nav-link" href="Signin.html">Sign in</a></li>
-                <li><a class="nav-link" href="contact.html">Contact us</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
 
 <div class="container py-5">
     <h1 class="mb-4">Checkout</h1>
@@ -90,86 +72,6 @@
 
     </form>
 </div>
-<!-- Start Footer Section -->
-<footer class="footer-section">
-	<div class="container relative">
-
-
-		<div class="row">
-			<div class="col-lg-8">
-				<div class="subscription-form">
-					<h3 class="d-flex align-items-center"><span class="me-1"><img src="images/envelope-outline.svg" alt="Image" class="img-fluid"></span><span>Subscribe to Newsletter</span></h3>
-
-					<form action="#" class="row g-3">
-						<div class="col-auto">
-							<input type="text" class="form-control" placeholder="Enter your name">
-						</div>
-						<div class="col-auto">
-							<input type="email" class="form-control" placeholder="Enter your email">
-						</div>
-						<div class="col-auto">
-							<button class="btn btn-primary">
-								<span class="fa fa-paper-plane"></span>
-							</button>
-						</div>
-					</form>
-
-				</div>
-			</div>
-		</div>
-
-		<div class="row g-5 mb-5">
-			<div class="col-lg-4">
-				<div class="mb-4 footer-logo-wrap"><a href="#" class="footer-logo">Craftify<span>.</span></a></div>
-				<p class="mb-4">Donec facilisis quam ut purus rutrum lobortis. Custom products that reflect your unique style, for personal use or gifts. Let us bring your ideas to life. Pellentesque habitant</p>
-
-				<ul class="list-unstyled custom-social">
-					<li><a href="#"><span class="fa fa-brands fa-facebook-f"></span></a></li>
-					<li><a href="#"><span class="fa fa-brands fa-twitter"></span></a></li>
-					<li><a href="#"><span class="fa fa-brands fa-instagram"></span></a></li>
-					<li><a href="#"><span class="fa fa-brands fa-linkedin"></span></a></li>
-				</ul>
-			</div>
-
-			<div class="col-lg-8">
-				<div class="row links-wrap">
-					<div class="col-6 col-sm-6 col-md-3">
-						<ul class="list-unstyled">
-							<li><a href="#">About us</a></li>
-							<li><a href="#">Services</a></li>
-							<li><a href="#">Sing in</a></li>
-							<li><a href="#">Contact us</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-
-		</div>
-
-		<div class="border-top copyright">
-			<div class="row pt-4">
-				<div class="col-lg-6">
-					<p class="mb-2 text-center text-lg-start">
-						Copyright &copy;<script>document.write(new Date().getFullYear());</script>. All Rights Reserved. &mdash; 
-						Designed with love by <a href="http://127.0.0.1:5500/furni-ed/index.html">Craftify</a> 
-						to offer unique and customized products for you.
-					</p>
-					
-				</div>
-
-				<div class="col-lg-6 text-center text-lg-end">
-					<ul class="list-unstyled d-inline-flex ms-auto">
-						<li class="me-4"><a href="#">Terms &amp; Conditions</a></li>
-						<li><a href="#">Privacy Policy</a></li>
-					</ul>
-				</div>
-
-			</div>
-		</div>
-
-	</div>
-</footer>
-<!-- End Footer Section -->	
 
 
 <script>
@@ -239,6 +141,35 @@ function applyCoupon() {
 }
 
 </script>
-
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // استهداف الفورم ومنع التحديث الافتراضي عند الإرسال
+        const checkoutForm = document.querySelector("form");
+        checkoutForm.addEventListener("submit", function (event) {
+            event.preventDefault(); // منع إعادة تحميل الصفحة
+    
+            const formData = new FormData(checkoutForm);
+    
+            // إرسال البيانات إلى checkout.php باستخدام fetch
+            fetch("checkout.php", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.href = "thankyou.html"; // التوجيه بعد نجاح الطلب
+                } else {
+                    alert(data.message); // إظهار رسالة خطأ إذا فشل الطلب
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("An error occurred while placing the order.");
+            });
+        });
+    });
+    </script>
+    
 </body>
 </html>
