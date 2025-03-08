@@ -67,7 +67,7 @@
                         <?php foreach ($coupons as $coupon): ?>
                             <tr>
                                 <td><?= htmlspecialchars($coupon['code']) ?></td>
-                                <td><?= htmlspecialchars($coupon['discount_value']) ?>%</td>
+                                <td><?= htmlspecialchars($coupon['discount_value']) ?></td>
                                 <td><?= $coupon['active'] ? 'Active' : 'Inactive' ?></td>
                                 <td>
                                     <a href="edit_coupon.php?id=<?= $coupon['id'] ?>" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i></a>
