@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             setUserSession($user);
 
-            header("Location: ../home/index.php");
+            header("Location: ../furni-ed/index.html");
             exit();
         } else {
             $message = "Failed to log in after registration.";
@@ -48,6 +48,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
+    <a class="navbar-brand" href="../furni-ed/index.html">Craftify<span>.</span></a>
+
     <div class="wrapper">
         <form action="index.php" method="post">
             <h2>sign Up</h2>
