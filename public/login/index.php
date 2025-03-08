@@ -37,7 +37,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="style.css" />
 </head>
 
+
 <body>
+    <a class="navbar-brand" href="../furni-ed/index.html">Craftify<span>.</span></a>
     <div class="wrapper">
         <form action="index.php" method="post">
             <h2>Login</h2>
