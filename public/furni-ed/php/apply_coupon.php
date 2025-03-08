@@ -11,14 +11,35 @@ $response = [
     'new_total' => 0,
 ];
 
-// Fetch cart from session
-$cart = $_SESSION['cart'] ?? [];
-//error
-$original_total = 0;
+// Check if user is logged in
+if (!isset($_SESSION['user_id'])) {
+    $response['message'] = 'User not logged in';
+    echo json_encode($response);
+    exit;
+}
 
-foreach ($cart as $item) {
-    $original_total += $item['price'] * $item['quantity'];
-}   
+// Get user_id from session
+$user_id = $_SESSION['user_id'];
+
+// Fetch the pending order for the user
+$stmt = $pdo->prepare("SELECT id, total_price FROM orders WHERE user_id = :user_id AND status = 'pending'");
+$stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+$stmt->execute();
+$order = $stmt->fetch(PDO::FETCH_ASSOC);
+
+if (!$order) {
+    $response['message'] = 'No pending order found.';
+    echo json_encode($response);
+    exit;
+}
+
+// Calculate the original total price from the order_items table
+$order_id = $order['id'];
+$stmt = $pdo->prepare("SELECT SUM(quantity * price) AS original_total FROM order_items WHERE order_id = :order_id");
+$stmt->bindValue(':order_id', $order_id, PDO::PARAM_INT);
+$stmt->execute();
+$total = $stmt->fetch(PDO::FETCH_ASSOC);
+$original_total = $total['original_total'];
 
 $response['original_total'] = $original_total;
 
@@ -26,9 +47,7 @@ $response['original_total'] = $original_total;
 $coupon_code = $_POST['coupon_code'] ?? '';
 
 // Check if coupon exists in the database
-$stmt = $pdo->prepare("SELECT id, discount_value, active, expiration_date 
-                       FROM coupons 
-                       WHERE code = ?");
+$stmt = $pdo->prepare("SELECT id, discount_value, active, expiration_date FROM coupons WHERE code = ?");
 $stmt->execute([$coupon_code]);
 $coupon = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -42,7 +61,7 @@ if (!$coupon) {
     // Apply discount if coupon is valid
     $discount_value = $coupon['discount_value'];
 
-    // Optional: Ensure discount does not exceed original total
+    // Ensure discount does not exceed original total
     if ($discount_value > $original_total) {
         $discount_value = $original_total;
     }
@@ -61,17 +80,16 @@ if (!$coupon) {
     $response['discount_value'] = $discount_value;
     $response['new_total'] = $new_total;
 
-    // Save applied coupon in session to use later in checkout.php
-    $_SESSION['applied_coupon'] = [
-        'id' => $coupon['id'],
-        'code' => $coupon_code,
-        'discount' => $discount_value
-    ];
+    // Save applied coupon in the orders table
+    $stmt = $pdo->prepare("UPDATE orders SET coupon_id = :coupon_id, total_price = :new_total WHERE id = :order_id");
+    $stmt->bindValue(':coupon_id', $coupon['id'], PDO::PARAM_INT);
+    $stmt->bindValue(':new_total', $new_total, PDO::PARAM_INT);
+    $stmt->bindValue(':order_id', $order_id, PDO::PARAM_INT);
+    $stmt->execute();
 }
 
 // Return response as JSON
 header('Content-Type: application/json');
 echo json_encode($response);
 exit;
-
 ?>

@@ -16,64 +16,62 @@ $response = [
     'total_price' => 0,
 ];
 
-// Read cart from session
-$cart = $_SESSION['cart'] ?? [];
+// Get user_id from session
+$user_id = $_SESSION['user_id'];
 
-// If cart is empty, return empty response
-if (empty($cart)) {
+// Fetch pending order for the user
+$sql = "SELECT id FROM orders WHERE user_id = :user_id AND status = 'pending'";
+$stmt = $pdo->prepare($sql);
+$stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+$stmt->execute();
+$order = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// If no pending order, return empty response
+if (!$order) {
     $response['success'] = false;
     $response['message'] = 'Your cart is empty.';
     echo json_encode($response);
     exit;
 }
 
-// Prepare to fetch product details from database
-$productIds = array_column($cart, 'product_id');
-if (empty($productIds)) {
-    $response['success'] = false;
-    $response['message'] = 'Invalid cart data.';
-    echo json_encode($response);
-    exit;
-}
-
-// Fetch products from database
-$placeholders = implode(',', array_fill(0, count($productIds), '?'));
-$sql = "SELECT id, name, price FROM products WHERE id IN ($placeholders)";
+// Fetch cart items from order_items
+$order_id = $order['id'];
+$sql = "SELECT 
+            order_items.product_id,
+            order_items.quantity,
+            order_items.price,
+            products.name,
+            products.image,
+            products.price,
+            (order_items.quantity * order_items.price) AS total_amount
+        FROM order_items
+        JOIN products ON order_items.product_id = products.id
+        WHERE order_items.order_id = :order_id";
 $stmt = $pdo->prepare($sql);
-$stmt->execute($productIds);
-$products = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-// Convert products to associative array [id => product]
-$productMap = [];
-foreach ($products as $product) {
-    $productMap[$product['id']] = $product;
-}
+$stmt->bindValue(':order_id', $order_id, PDO::PARAM_INT);
+$stmt->execute();
+$cart = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // Calculate total price and build cart items response
 $totalPrice = 0;
 foreach ($cart as $item) {
-    $productId = $item['product_id'];
-    if (!isset($productMap[$productId])) {
-        continue; // Skip if product not found in database
-    }
-
-    $product = $productMap[$productId];
-    $quantity = $item['quantity'];
-    $price = $product['price'] * $quantity;
-    $totalPrice += $price;
+    $totalPrice += $item['total_amount'];
 
     $response['cart'][] = [
-        'product_id' => $productId,
-        'name' => $product['name'],
-        'quantity' => $quantity,
-        'price' => $product['price'],
-        'total' => $price
+        'product_id' => $item['product_id'],
+        'name' => $item['name'],
+        'quantity' => $item['quantity'],
+        'price' => $item['price'],
+        'total' => $item['total_amount'],
+        'image' => $item['image']
     ];
 }
 
 // Set total price in response
 $response['total_price'] = $totalPrice;
+
 // Return response as JSON
 header('Content-Type: application/json');
 echo json_encode($response);
 exit;
+?>

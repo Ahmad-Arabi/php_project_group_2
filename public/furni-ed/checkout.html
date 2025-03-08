@@ -23,7 +23,7 @@
                 <li><a class="nav-link" href="shop.html">Shop</a></li>
                 <li><a class="nav-link" href="about.html">About us</a></li>
                 <li><a class="nav-link" href="services.html">Services</a></li>
-                <li><a class="nav-link" href="Singin.html">Sign in</a></li>
+                <li><a class="nav-link" href="Signin.html">Sign in</a></li>
                 <li><a class="nav-link" href="contact.html">Contact us</a></li>
             </ul>
         </div>
@@ -204,39 +204,40 @@
     document.getElementById('original_price').innerText = data.total_price.toFixed(2);
     document.getElementById('total_price').innerText = data.total_price.toFixed(2);
 });
-//error 
-    function applyCoupon() {
-        const couponCode = document.getElementById('coupon_code').value;
-        fetch('php/apply_coupon.php', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-            body: 'coupon_code=' + encodeURIComponent(couponCode)
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            const originalTotal = parseFloat(data.original_total);
-            const discountValue = parseFloat(data.discount_value);
-            const newTotal = parseFloat(data.new_total);
-            
-            document.getElementById('original_price').innerText = originalTotal.toFixed(2);
-            document.getElementById('discount_value').innerText = discountValue.toFixed(2);
-            document.getElementById('total_price').innerText = newTotal.toFixed(2);
-            document.getElementById('coupon_message').innerText = data.message;
-            document.getElementById('coupon_message').style.color = data.success ? 'green' : 'red';
-            document.getElementById('coupon_message').style.display = 'block';
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            document.getElementById('coupon_message').innerText = 'Error applying coupon';
-            document.getElementById('coupon_message').style.color = 'red';
-            document.getElementById('coupon_message').style.display = 'block';
-        });
-    }
+
+function applyCoupon() {
+    const couponCode = document.getElementById('coupon_code').value;
+    fetch('php/apply_coupon.php', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: 'coupon_code=' + encodeURIComponent(couponCode)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        const originalTotal = parseFloat(data.original_total);
+        const discountValue = parseFloat(data.discount_value);
+        const newTotal = parseFloat(data.new_total);
+        
+        document.getElementById('original_price').innerText = originalTotal.toFixed(2);
+        document.getElementById('discount_value').innerText = discountValue.toFixed(2);
+        document.getElementById('total_price').innerText = newTotal.toFixed(2);
+        document.getElementById('coupon_message').innerText = data.message;
+        document.getElementById('coupon_message').style.color = data.success ? 'green' : 'red';
+        document.getElementById('coupon_message').style.display = 'block';
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        document.getElementById('coupon_message').innerText = 'Error applying coupon';
+        document.getElementById('coupon_message').style.color = 'red';
+        document.getElementById('coupon_message').style.display = 'block';
+    });
+}
+
 </script>
 
 </body>
