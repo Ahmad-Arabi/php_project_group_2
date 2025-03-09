@@ -1,5 +1,5 @@
 <?php
-require_once "../../includes/database/config.php";
+require_once "../../includes/database/config.php"; 
 $query = "SELECT 
             products.id, 
             products.category_id, 
@@ -59,22 +59,25 @@ try {
   <meta name="description" content="" />
   <meta name="keywords" content="bootstrap, bootstrap4" />
 
-		<!-- Bootstrap CSS -->
-		<link href="css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Bootstrap CSS -->
+		<link href="../../includes/css/bootstrap.min.css" rel="stylesheet">
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-		<link href="css/tiny-slider.css" rel="stylesheet">
-		<link href="css/style.css" rel="stylesheet">
-		<link href="css/Filter.css" rel="stylesheet">
+		<link href="../../includes/css/tiny-slider.css" rel="stylesheet">
+		<link href="../../includes/css/style.css" rel="stylesheet">
+        <link href="../../includes/css/Filter.css" rel="stylesheet">
+
+
 		<title>Craftify Free Bootstrap 5 Template for Craftifyture and Interior Design Websites by Untree.co </title>
 	</head>
 
 	<body>
 
 		<!-- Start Header/Navigation -->
-		<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Craftify navigation bar">
+	<!-- 	<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Craftify navigation bar">
 
 			<div class="container">
-				<a class="navbar-brand" href="index.html">Craftify<span>.</span></a>
+				<a class="navbar-brand" href="../furni-ed/index.php">Craftify<span>.</span></a>
 
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsCraftify" aria-controls="navbarsCraftify" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
@@ -83,7 +86,7 @@ try {
 				<div class="collapse navbar-collapse" id="navbarsCraftify">
 					<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
 						<li class="nav-item">
-							<a class="nav-link" href="index.php">Home</a>
+							<a class="nav-link" href="../furni-ed/index.php">Home</a>
 						</li>
 						<li class="active"><a class="nav-link" href="shop.php">Shop</a></li>
 
@@ -102,7 +105,7 @@ try {
 				</div>
 			</div>
 				
-		</nav>
+		</nav> -->
 		<!-- End Header/Navigation -->
 
 		<!-- Start Hero Section -->
@@ -146,7 +149,22 @@ try {
         <?php endforeach; ?>
         <!-- End Filter Category-->
 
-        <!-- Radio Buttons -->
+          <!--slider product  -->
+        <div class="product-slider-container mt-4">
+    <div class="product-slider d-flex">
+        <?php
+        $stmt = $pdo->query("SELECT id, name, image FROM products WHERE is_active = 1 LIMIT 10");
+        while ($product = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
+            <div class="product-item">
+                <img src="../../admin/product/uploads/product_images/<?= htmlspecialchars($product['image']); ?>" alt="<?= htmlspecialchars($product['name']); ?>">
+                <p><?= htmlspecialchars($product['name']); ?></p>
+            </div>
+        <?php endwhile; ?>
+    </div>
+</div>
+
+       
+<!-- Radio Buttons -->
         <div class="price-filter">
             <p><strong>Filter by Price:</strong></p>
             
@@ -199,14 +217,15 @@ try {
 			
            <a class="product-item" href="/E_commerce_PHP/admin/product/product_details.php?id=<?= $product['id'] ?>">
 
-						<img src="/E_commerce_PHP/admin/product/uploads/product_images/<?php echo htmlspecialchars($product['product_image']); ?>" class="img-fluid product-thumbnail" alt="<?php echo htmlspecialchars($product['name']); ?>">
-						
+                        <img src="../../admin/product/uploads/product_images/<?php echo htmlspecialchars($product['product_image']); ?>" class="img-fluid product-thumbnail" alt="<?php echo htmlspecialchars($product['name']); ?>">
+
 						<h3 class="product-title"><?php echo htmlspecialchars($product['name']); ?></h3>
 						
 						<strong class="product-price"><?php echo '$' . number_format($product['price'], 2); ?></strong>
 
 						<span class="icon-cross">
-						<img src="/E_commerce_PHP/public/furni-ed/images/icon_plus.png" class="img-fluid" alt="cross">
+                        <img src="../../includes/images/icon_plus.png" class="img-fluid" alt="cross">
+
 						</span>
                 </a>
             </div>
@@ -217,15 +236,34 @@ try {
     </div>
 </div>
      <!-- Start Footer Section -->
-        <?php include '../../includes/footer/index.php'; ?>
 
     <!-- End Footer Section -->	
 
 
 
-		<script src="js/bootstrap.bundle.min.js"></script>
-		<script src="js/tiny-slider.js"></script>
-		<script src="js/custom.js"></script>
+	
+        <script src="../../includes/js/bootstrap.bundle.min.js"></script>
+		<script src="../../includes/js/tiny-slider.js"></script>
+		<script src="../../includes/js/custom.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+            const slider = document.querySelector(".product-slider");
+            let scrollAmount = 0;
+
+    function scrollProducts() {
+        if (scrollAmount >= slider.scrollWidth / 2) {
+            scrollAmount = 0;
+            slider.style.transform = `translateX(0)`;
+        } else {
+            scrollAmount += 1;
+            slider.style.transform = `translateX(-${scrollAmount}px)`;
+        }
+    }
+
+    setInterval(scrollProducts, 10);
+});
+
+        </script>
 	</body>
 
 </html>

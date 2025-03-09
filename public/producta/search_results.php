@@ -22,7 +22,7 @@ if (isset($_GET['query']) && !empty($_GET['query'])) {
         header("Location: shop.php?query=" . urlencode($searchQuery));
         exit; 
     } else {
-        header("Location: shop.php.php?query=" . urlencode($searchQuery) . "&no_results=1");
+        header("Location: shop.php?query=" . urlencode($searchQuery) . "&no_results=1");
         exit; 
     }
 

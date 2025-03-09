@@ -1,9 +1,8 @@
 <?php
 session_start();
 require_once "../../includes/database/config.php";
-
-/* $_SESSION['user_id'] = 6; 
- */
+ $_SESSION['user_id'] = 6; 
+ 
 if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = []; 
 }
@@ -156,7 +155,8 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                 <div class="row g-0">
                     <div class="col-md-6">
                         <div class="product-image-container" style="position: relative;">
-                            <img src="/E_commerce_PHP/admin/product/uploads/product_images/<?php echo htmlspecialchars($product['image'], ENT_QUOTES, 'UTF-8'); ?>"
+							<img src="../../admin/product/uploads/product_images/<?php echo htmlspecialchars($product['image'], ENT_QUOTES, 'UTF-8'); ?>"
+
                                  alt="<?php echo htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8'); ?>"
                                  class="img-fluid rounded-start w-100">
                         </div>

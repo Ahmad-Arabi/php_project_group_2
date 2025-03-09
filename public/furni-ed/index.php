@@ -1,9 +1,6 @@
 <?php
 require_once "../../includes/database/config.php";
 
-$query = "SELECT category_image FROM categories WHERE is_active = 1";
-$stmt = $pdo->query($query);
-$images = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 
@@ -89,15 +86,7 @@ $images = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <div class="col-lg-7">
                 <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
                     <div class="carousel-inner">
-					<?php
-						$active = "active"; 
-						foreach ($images as $image) {
-							echo '<div class="carousel-item ' . $active . '">';
-							echo '<img src="../../admin/category/uploads/category_images/"' . $image['category_image'] . '" class="d-block w-100" alt="...">';
-							echo '</div>';
-							$active = "";
-						}
-					?>
+					
 
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">

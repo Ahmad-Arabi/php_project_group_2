@@ -9,63 +9,65 @@
   <meta name="description" content="" />
   <meta name="keywords" content="bootstrap, bootstrap4" />
 
+		
+
 		<!-- Bootstrap CSS -->
-		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link href="../../includes/css/bootstrap.min.css" rel="stylesheet">
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-		<link href="css/tiny-slider.css" rel="stylesheet">
-		<link href="css/style.css" rel="stylesheet">
+		<link href="../../includes/css/tiny-slider.css" rel="stylesheet">
+		<link href="../../includes/css/style.css" rel="stylesheet">
+
 		<title>Craftify Free Bootstrap 5 Template for Craftifyture and Interior Design Websites by Untree.co </title>
 	</head>
 
 	<body>
 
 		<!-- Start Header/Navigation -->
-		<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Craftify navigation bar">
+	<!-- <nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Craftify navigation bar">
 
-			<div class="container">
-				<a class="navbar-brand" href="index.html">Craftify<span>.</span></a>
+<div class="container">
+	<a class="navbar-brand" href="../furni-ed/index.php">Craftify<span>.</span></a>
 
-				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsCraftify" aria-controls="navbarsCraftify" aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
+	<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsCraftify" aria-controls="navbarsCraftify" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
 
-				<div class="collapse navbar-collapse" id="navbarsCraftify">
-					<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
-						<li class="nav-item">
-							<a class="nav-link" href="index.php">Home</a>
-						</li>
-						<li><a class="nav-link" href="shop.php">Shop</a></li>
-						<li><a class="nav-link" href="about.html">About us</a></li>
-						<li><a class="nav-link" href="services.html">Services</a></li>
-						<li><a class="nav-link" href="Singin.html">Sing in</a></li>
+	<div class="collapse navbar-collapse" id="navbarsCraftify">
+		<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+			<li class="nav-item">
+				<a class="nav-link" href="../furni-ed/index.php">Home</a>
+			</li>
+			<li><a class="nav-link" href="shop.php">Shop</a></li>
+			<li><a class="nav-link" href="../furni-ed/about.html">About us</a></li>
+			<li><a class="nav-link" href="../furni-ed/services.html">Services</a></li>
+			
+			<li class="active"><a class="nav-link" href="../furni-ed/Singin.html">Sing in</a></li>
+			<li><a class="nav-link" href="policy.php">Privacy Policy</a></li>
 
-						<li><a class="nav-link" href="policy.php">Privacy Policy</a></li>
+			<li><a class="nav-link" href="contact.php">Contact us</a></li>
+		</ul>
 
-						<li><a class="nav-link" href="contact.php">Contact us</a></li>
-					</ul>
-
-					<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-						<li><a class="nav-link" href="#"><img src="images/user.svg"></a></li>
-						<li><a class="nav-link" href="cart.html"><img src="images/cart.svg"></a></li>
-					</ul>
-				</div>
-			</div>
-				
-		</nav>
-		<!-- End Header/Navigation -->
-
+		<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+			<li><a class="nav-link" href="#"><img src="images/user.svg"></a></li>
+			<li><a class="nav-link" href="cart.html"><img src="images/cart.svg"></a></li>
+		</ul>
+	</div>
+</div>
+	
+</nav> -->
+<!-- End Header/Navigation -->
 
 		
 		
 <!-- Start Singin Section -->
 <div class="Singin-section">
-	<div class="container-fluid d-flex justify-content-center align-items-center" style="height: 100vh; margin: 5px 210px ">
+	<div class="container-fluid d-flex justify-content-center align-items-center" style="height: 50vh; padding: 5px 410px ">
 		<div class="row ">
 	  
             <!-- Terms of Use -->
             <div class="col-12 col-sm-6 col-md-4 mb-5">
                 <div class="post-entry">
-                    <a href="#" class="post-thumbnail"><img src="images/white.jpg" alt="Image" class="img-fluid"></a>
+                    <a href="#" class="post-thumbnail"><img src="../../includes/images/Terms.jpg" alt="Image" class="img-fluid"></a>
                     <div class="post-content-entry">
                         <h3><a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">Terms of Use</a></h3>
                         <div class="meta">
@@ -78,7 +80,7 @@
             <!-- Privacy Policy -->
             <div class="col-12 col-sm-6 col-md-4 mb-5">
                 <div class="post-entry">
-                    <a href="#" class="post-thumbnail"><img src="images/top.jpg" alt="Image" class="img-fluid"></a>
+                    <a href="#" class="post-thumbnail"><img src="../../includes/images/privacy.jfif" alt="Image" class="img-fluid" ></a>
                     <div class="post-content-entry">
                         <h3><a href="#" data-bs-toggle="modal" data-bs-target="#privacyModal">Privacy Policy</a></h3>
                         <div class="meta">
@@ -108,7 +110,7 @@
       </div>
       <div class="modal-body">
         <h5>1. Introduction</h5>
-        <p>Welcome to CUSTOMIZE-VIP  Website. By accessing or using our services, you agree to comply with and be bound by these Terms of Use. If you do not agree to these terms, please do not use our services.</p>
+        <p>Welcome to CUSTOMIZE-Text  Website. By accessing or using our services, you agree to comply with and be bound by these Terms of Use. If you do not agree to these terms, please do not use our services.</p>
 
         <h5>2. User Responsibilities</h5>
         <p>Users are responsible for maintaining the confidentiality of their account and passwords. You agree to notify us immediately of any unauthorized access to your account.</p>
@@ -196,7 +198,7 @@
 
 												<div class="author-info">
 													<div class="author-pic">
-														<img src="images/person-1.png" alt="Maria Jones" class="img-fluid">
+														<img src="../../includes/images/icon_plus.png" alt="Maria Jones" class="img-fluid">
 													</div>
 													<h3 class="font-weight-bold">Maria Jones</h3>
 													<span class="position d-block mb-3">CEO, Co-Founder, XYZ Inc.</span>
@@ -266,94 +268,15 @@
 		
 
 		<!-- Start Footer Section -->
-		<footer class="footer-section">
-			<div class="container relative">
-
-
-				<div class="row">
-					<div class="col-lg-8">
-						<div class="subscription-form">
-							<h3 class="d-flex align-items-center"><span class="me-1"><img src="images/envelope-outline.svg" alt="Image" class="img-fluid"></span><span>Subscribe to Newsletter</span></h3>
-
-							<form action="#" class="row g-3">
-								<div class="col-auto">
-									<input type="text" class="form-control" placeholder="Enter your name">
-								</div>
-								<div class="col-auto">
-									<input type="email" class="form-control" placeholder="Enter your email">
-								</div>
-								<div class="col-auto">
-									<button class="btn btn-primary">
-										<span class="fa fa-paper-plane"></span>
-									</button>
-								</div>
-							</form>
-
-						</div>
-					</div>
-				</div>
-
-				<div class="row g-5 mb-5">
-					<div class="col-lg-4">
-						<div class="mb-4 footer-logo-wrap"><a href="#" class="footer-logo">Craftify<span>.</span></a></div>
-						<p class="mb-4">Donec facilisis quam ut purus rutrum lobortis. Custom products that reflect your unique style, for personal use or gifts. Let us bring your ideas to life. Pellentesque habitant</p>
-
-						<ul class="list-unstyled custom-social">
-							<li><a href="#"><span class="fa fa-brands fa-facebook-f"></span></a></li>
-							<li><a href="#"><span class="fa fa-brands fa-twitter"></span></a></li>
-							<li><a href="#"><span class="fa fa-brands fa-instagram"></span></a></li>
-							<li><a href="#"><span class="fa fa-brands fa-linkedin"></span></a></li>
-						</ul>
-					</div>
-
-					<div class="col-lg-8">
-						<div class="row links-wrap">
-							<div class="col-6 col-sm-6 col-md-3">
-								<ul class="list-unstyled">
-									<li><a href="#">About us</a></li>
-									<li><a href="#">Services</a></li>
-									<li><a href="#">Sing in</a></li>
-									<li><a href="#">Contact us</a></li>
-								</ul>
-							</div>
-
-						
-
-						
-						</div>
-					</div>
-
-				</div>
-
-				<div class="border-top copyright">
-					<div class="row pt-4">
-						<div class="col-lg-6">
-							<p class="mb-2 text-center text-lg-start">
-								Copyright &copy;<script>document.write(new Date().getFullYear());</script>. All Rights Reserved. &mdash; 
-								Designed with love by <a href="http://127.0.0.1:5500/furni-ed/index.html">Craftify</a> 
-								to offer unique and customized products for you.
-							</p>
-							
-						</div>
-
-						<div class="col-lg-6 text-center text-lg-end">
-							<ul class="list-unstyled d-inline-flex ms-auto">
-								<li class="me-4"><a href="#">Terms &amp; Conditions</a></li>
-								<li><a href="#">Privacy Policy</a></li>
-							</ul>
-						</div>
-
-					</div>
-				</div>
-
-			</div>
-		</footer>
+		
 		<!-- End Footer Section -->	
 
 
-		<script src="js/bootstrap.bundle.min.js"></script>
-		<script src="js/tiny-slider.js"></script>
-		<script src="js/custom.js"></script>
+		
+		
+		<script src="../../includes/js/bootstrap.bundle.min.js"></script>
+		<script src="../../includes/js/tiny-slider.js"></script>
+		<script src="../../includes/js/custom.js"></script>
 	</body>
 
 </html>
