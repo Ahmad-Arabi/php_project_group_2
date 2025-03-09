@@ -151,6 +151,9 @@ form button:hover {
     font-weight: bold;
     margin-top: 15px;
 }
+
+.bg-primary,
+.btn-primary,
 .navbar-dark .navbar-brand,
 .navbar-dark .navbar-nav .nav-link.active {
   background-color: #000 !important;

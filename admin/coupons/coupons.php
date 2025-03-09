@@ -48,7 +48,7 @@
             ?>
 
             <div class="text-end my-3">
-                <a href="add_coupon.php" class="btn btn-success">Add Coupon</a>
+                <a href="add_coupon.php" class="btn btn-success"><i class="bi bi-plus-circle"></i></a>
             </div>
 
             <table class="table table-bordered table-striped">
@@ -67,14 +67,14 @@
                         <?php foreach ($coupons as $coupon): ?>
                             <tr>
                                 <td><?= htmlspecialchars($coupon['code']) ?></td>
-                                <td><?= htmlspecialchars($coupon['discount_value']) ?>%</td>
+                                <td><?= htmlspecialchars($coupon['discount_value']) ?></td>
                                 <td><?= $coupon['active'] ? 'Active' : 'Inactive' ?></td>
                                 <td>
-                                    <a href="edit_coupon.php?id=<?= $coupon['id'] ?>" class="btn btn-primary btn-sm">Edit</a>
+                                    <a href="edit_coupon.php?id=<?= $coupon['id'] ?>" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i></a>
                                     <?php if ($coupon['active']): ?>
-                                        <a href="disable_coupon.php?id=<?= $coupon['id'] ?>" class="btn btn-danger btn-sm">Disable</a>
+                                        <a href="disable_coupon.php?id=<?= $coupon['id'] ?>" class="btn btn-danger btn-sm"><i class="bi bi-x-circle"></i></a>
                                     <?php else: ?>
-                                        <a href="restore_coupon.php?id=<?= $coupon['id'] ?>" class="btn btn-warning btn-sm">Restore</a>
+                                        <a href="restore_coupon.php?id=<?= $coupon['id'] ?>" class="btn btn-warning btn-sm"><i class="bi bi-arrow-clockwise"></i></a>
                                     <?php endif; ?>
                                 </td>
                             </tr>
