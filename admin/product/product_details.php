@@ -1,6 +1,82 @@
 <?php
+session_start();
 require_once "../../includes/database/config.php";
+
+/* $_SESSION['user_id'] = 6; 
+ */
+if (!isset($_SESSION['cart'])) {
+    $_SESSION['cart'] = []; 
+}
+
+function getProductDetails($product_id) {
+    global $pdo;
+    $stmt = $pdo->prepare("SELECT * FROM products WHERE id = ?");
+    $stmt->execute([$product_id]);
+    return $stmt->fetch();
+}
+
+if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+    $id = $_GET['id'];
+    
+    $stmt = $pdo->prepare("SELECT * FROM products WHERE id = ?");
+    $stmt->execute([$id]);
+    $product = $stmt->fetch();
+
+    if ($product) {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
+            $product_id = $product['id'];
+            $quantity = 1; 
+
+            // Checking if the order exists
+            $stmt = $pdo->prepare("SELECT * FROM orders WHERE user_id = ? AND status = 'pending' LIMIT 1");
+            $stmt->execute([$_SESSION['user_id']]);
+            $order = $stmt->fetch();
+
+            if ($order) {
+                $order_id = $order['id'];
+            } else {
+                // Creating a new order if not found
+                $stmt = $pdo->prepare("INSERT INTO orders (user_id, status, created_at) VALUES (?, 'pending', NOW())");
+                $stmt->execute([$_SESSION['user_id']]);
+
+                if ($stmt->rowCount() > 0) {
+                    $order_id = $pdo->lastInsertId();
+                } else {
+                    echo "Error creating order.";
+                    exit();
+                }
+            }
+
+            // Inserting into order_items
+            $stmt = $pdo->prepare("INSERT INTO order_items (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?)");
+			$stmt->execute([$order_id, $product_id, $quantity, $product['price']]);
+			
+			
+            if ($stmt->rowCount() > 0) {
+                echo "Product added to order successfully.";
+            } else {
+                echo "Error adding product to order.";
+            }
+
+            // Adding product to cart
+            if (!isset($_SESSION['cart'][$product_id])) {
+                $_SESSION['cart'][$product_id] = [
+                    'quantity' => $quantity,
+                    'product_details' => $product 
+                ];
+            } else {
+                $_SESSION['cart'][$product_id]['quantity'] += $quantity;
+            }
+
+            header('Location: cart.php');
+            exit();
+        }
+    } else {
+        echo "Product not found.";
+    }
+}
 ?>
+
 
 
 <!doctype html>
@@ -16,6 +92,8 @@ require_once "../../includes/database/config.php";
 
 		<!-- Bootstrap CSS -->
 		<link href="../../public/furni-ed/css/bootstrap.min.css" rel="stylesheet">
+
+
 
 		
 		<link href="../../public/furni-ed/css/style.css" rel="stylesheet">
@@ -43,12 +121,14 @@ require_once "../../includes/database/config.php";
 				<div class="collapse navbar-collapse" id="navbarsFurni">
 					<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
 						<li class="nav-item">
-							<a class="nav-link" href="index.html">Home</a>
+							<a class="nav-link" href="index.php">Home</a>
 						</li>
 						<li><a class="nav-link" href="shop.php">Shop</a></li>
 						<li><a class="nav-link" href="about.html">About us</a></li>
 						<li><a class="nav-link" href="services.html">Services</a></li>
 						<li class="active"><a class="nav-link" href="blog.html">Blog</a></li>
+						<li><a class="nav-link" href="policy.php">Privacy Policy</a></li>
+
 						<li><a class="nav-link" href="contact.php">Contact us</a></li>
 					</ul>
 
@@ -63,182 +143,48 @@ require_once "../../includes/database/config.php";
 		<!-- End Header/Navigation -->
 
 		<!-- Start Hero Section -->
-			<div class="hero">
-				<div class="container">
-					<div class="row justify-content-between">
-						<div class="col-lg-5">
-							<div class="intro-excerpt">
-								<h1>Blog</h1>
-								<p class="mb-4">Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique.</p>
-								<p><a href="" class="btn btn-secondary me-2">Shop Now</a><a href="#" class="btn btn-white-outline">Explore</a></p>
-							</div>
-						</div>
-						<div class="col-lg-7">
-							<div class="hero-img-wrap">
-								<img src="images/couch.png" class="img-fluid">
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+			
 		<!-- End Hero Section -->
 
 		
 
-	<!-- Start Blog Section -->
-	<?php
-if (isset($_GET['id']) && is_numeric($_GET['id'])) {
-    $id = $_GET['id'];
+<!-- Start Blog Section -->
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-lg border-0">
+                <div class="row g-0">
+                    <div class="col-md-6">
+                        <div class="product-image-container" style="position: relative;">
+                            <img src="/E_commerce_PHP/admin/product/uploads/product_images/<?php echo htmlspecialchars($product['image'], ENT_QUOTES, 'UTF-8'); ?>"
+                                 alt="<?php echo htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8'); ?>"
+                                 class="img-fluid rounded-start w-100">
+                        </div>
+                    </div>
+                    <div class="col-md-6 d-flex align-items-center">
+                        <div class="card-body text-center">
+                            <h2 class="card-title text-primary"><?php echo htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8'); ?></h2>
+                            <p class="card-text text-muted"><?php echo htmlspecialchars($product['description'], ENT_QUOTES, 'UTF-8'); ?></p>
+                            <h3 class="text-danger"><?php echo '$' . number_format($product['price'], 2); ?></h3>
 
-    try {
-        $stmt = $pdo->prepare("SELECT * FROM products WHERE id = ?");
-        $stmt->execute([$id]);
-        $product = $stmt->fetch();
+                            <!-- إadd to cart -->
+                            <form method="POST">
+                                <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
 
-        if ($product): ?>
-            <!-- Start Product Details Section -->
-            <div class="container mt-5">
-                <div class="row justify-content-center">
-                    <div class="col-lg-8">
-                        <div class="card shadow-lg border-0">
-                            <div class="row g-0">
-                                <div class="col-md-6">
-								<div class="product-image-container" style="position: relative;">
+                                <button type="submit" name="add_to_cart" class="btn btn-outline-secondary btn-lg mt-4">Add to Cart</button>
+                            </form>
 
-                                    <img src="/E_commerce_PHP/php_project_group_2/admin/product/uploads/product_images/
-										<?php echo htmlspecialchars($product['image'], ENT_QUOTES, 'UTF-8'); ?>"
-                                        alt="<?php echo htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8'); ?>"
-                                        class="img-fluid rounded-start w-100">
-                                         <!-- added img customize  -->
-										<img id="customOverlayImage" src="" style="position: absolute; top: 50px; left: 50px; width: 100px; height: auto; display: none;">
-								</div>
-                                </div>
-                                <div class="col-md-6 d-flex align-items-center">
-                                    <div class="card-body text-center">
-                                        <h2 class="card-title text-primary"><?php echo htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8'); ?></h2>
-                                        <p class="card-text text-muted"><?php echo htmlspecialchars($product['description'], ENT_QUOTES, 'UTF-8'); ?></p>
-                                        <h3 class="text-danger"><?php echo '$' . number_format($product['price'], 2); ?></h3>
-										<!-- Product Customization Options -->
-										<div class="mt-4">
-											 <!-- Text Customization -->
-											 <label for="customText">Customize Text:</label>
-                                            <input type="text" id="customText" class="form-control mb-2" placeholder="Enter custom text" oninput="updateText()">
-                                            <label for="textColor">Choose Text Color:</label>
-                                            <input type="color" id="textColor" class="form-control mb-2" oninput="updateText()">
-											
-											</select>
-                                            
-
-													<div id="customTextOverlay" style="position: absolute; top: 50px; left: 50px; font-size: 24px; font-weight: bold; color: black; display: none;">
-													Your Text
-												</div>
-												<img id="customOverlayImage" src="" style="position: absolute; top: 50px; left: 50px; width: 100px; height: auto; display: none;">
-											</div>
-                                            <!-- Add to Cart Button -->
-                                            <a href="cart.php?add=<?php echo $product['id']; ?>" class="btn btn-success btn-lg me-2 mt-4">Add to Cart</a>
-                                            <a href="../../public/furni-ed/shop.php" class="btn btn-outline-secondary btn-lg mt-4">Back to Store</a>
-                                        </div>
-                                           
-                                           
-                                        </div>
-										<script>
-										
-
-function updateText() {
-    const customText = document.getElementById('customText').value;
-    const textColor = document.getElementById('textColor').value;
-
-    // Get the customTextOverlay element
-    const textOverlay = document.getElementById('customTextOverlay');
-
-    // If customTextOverlay doesn't exist, return
-    if (!textOverlay) {
-        console.error('customTextOverlay element not found');
-        return;
-    }
-
-    // Set the text content and color
-    textOverlay.textContent = customText;
-    textOverlay.style.color = textColor;
-
-    // Optionally, apply additional styling for positioning
-    textOverlay.style.position = 'absolute';
-    textOverlay.style.top = '50%';
-    textOverlay.style.left = '50%';
-    textOverlay.style.transform = 'translate(-50%, -50%)';
-    textOverlay.style.fontSize = '24px';
-    textOverlay.style.fontWeight = 'bold';
-    textOverlay.style.textShadow = '2px 2px 4px rgba(0, 0, 0, 0.5)';
-
-    // Display the text if it's not empty, hide it if it's empty
-    if (customText.trim() !== "") {
-        textOverlay.style.display = "block";
-    } else {
-        textOverlay.style.display = "none";
-    }
-}
-// Function to update the custom text
-function updateText() {
-        const customText = document.getElementById('customText').value;
-        const textColor = document.getElementById('textColor').value;
-
-        // Get the container where the text will be displayed
-        const productImageContainer = document.querySelector('.product-image-container'); // Replace this with your actual image container
-
-        // Create or update the text element
-        let productText = document.getElementById('productText');
-        
-        // If the text element doesn't exist, create one
-        if (!productText) {
-            productText = document.createElement('div');
-            productText.id = 'productText';
-            productImageContainer.appendChild(productText);
-        }
-
-        // Set the text content and color
-        productText.textContent = customText;
-        productText.style.color = textColor;
-
-        // Optionally, apply additional styling
-        productText.style.position = 'absolute';
-        productText.style.top = '50%';
-        productText.style.left = '50%';
-        productText.style.transform = 'translate(-50%, -50%)';
-        productText.style.fontSize = '24px';
-        productText.style.fontWeight = 'bold';
-        productText.style.textShadow = '2px 2px 4px rgba(0, 0, 0, 0.5)';
-    }
-
-	
-
-
-
-
-
-</script>
-
-                                    </div>
-                                </div>
-                            </div>
+                            <a href="../../public/furni-ed/shop.php" class="btn btn-outline-secondary btn-lg mt-4">Back to Store</a>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- End Product Details Section -->
-			
-        <?php else: ?>
-            <div class="text-center text-danger mt-5">
-                <h4>Product does not exist.</h4>
-            </div>
-        <?php endif;
-    } catch (PDOException $e) {
-        echo '<div class="text-center text-danger mt-5"><h4>Data retrieval error: ' . $e->getMessage() . '</h4></div>';
-    }
-} else {
-    echo '<div class="text-center text-danger mt-5"><h4>Invalid link.</h4></div>';
-}
+        </div>
+    </div>
+</div>
+<!-- End Product Details Section -->
 
-?>
+
 
 		
 
@@ -350,6 +296,7 @@ function updateText() {
 		<script src="js/bootstrap.bundle.min.js"></script>
 		<script src="js/tiny-slider.js"></script>
 		<script src="js/custom.js"></script>
+
 	
 			
 	</body>

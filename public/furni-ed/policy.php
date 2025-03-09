@@ -1,10 +1,3 @@
-<!-- /*
-* Bootstrap 5
-* Template Name: Craftify
-* Template Author: Untree.co
-* Template URI: https://untree.co/
-* License: https://creativecommons.org/licenses/by/3.0/
-*/ -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -39,15 +32,16 @@
 				<div class="collapse navbar-collapse" id="navbarsCraftify">
 					<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
 						<li class="nav-item">
-							<a class="nav-link" href="index.html">Home</a>
+							<a class="nav-link" href="index.php">Home</a>
 						</li>
-						<li><a class="nav-link" href="shop.html">Shop</a></li>
+						<li><a class="nav-link" href="shop.php">Shop</a></li>
 						<li><a class="nav-link" href="about.html">About us</a></li>
 						<li><a class="nav-link" href="services.html">Services</a></li>
 						<li><a class="nav-link" href="Singin.html">Sing in</a></li>
 
+						<li><a class="nav-link" href="policy.php">Privacy Policy</a></li>
 
-						<li><a class="nav-link" href="contact.html">Contact us</a></li>
+						<li><a class="nav-link" href="contact.php">Contact us</a></li>
 					</ul>
 
 					<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
@@ -60,150 +54,114 @@
 		</nav>
 		<!-- End Header/Navigation -->
 
-<<<<<<< HEAD
-=======
-		<!-- Start Hero Section -->
-			<div class="hero">
-				<div class="container">
-					<div class="row justify-content-between">
-						<div class="col-lg-5">
-							<div class="intro-excerpt">
-								<h1>Blog</h1>
-								<p class="mb-4">Custom products that reflect your unique style, for personal use or gifts. Let us bring your ideas to life.</p>
-								<p><a href="" class="btn btn-secondary me-2">Shop Now</a><a href="#" class="btn btn-white-outline">Explore</a></p>
-							</div>
-						</div>
-						<div class="col-lg-7">
-							<div class="hero-img-wrap">
-								<img src="images/pngtre.png" class="img-fluid">
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		<!-- End Hero Section -->
 
->>>>>>> 7455ddc9d976f641fd5c95f2e826a51c3e0c19d3
 		
+		
+<!-- Start Singin Section -->
+<div class="Singin-section">
+	<div class="container-fluid d-flex justify-content-center align-items-center" style="height: 100vh; margin: 5px 210px ">
+		<div class="row ">
+	  
+            <!-- Terms of Use -->
+            <div class="col-12 col-sm-6 col-md-4 mb-5">
+                <div class="post-entry">
+                    <a href="#" class="post-thumbnail"><img src="images/white.jpg" alt="Image" class="img-fluid"></a>
+                    <div class="post-content-entry">
+                        <h3><a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">Terms of Use</a></h3>
+                        <div class="meta">
+                            <span>by <a href="#">Admin</a></span> <span>on <a href="#">March 7, 2025</a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-		<!-- Start Singin Section -->
-		<div class="Singin-section">
-			<div class="container">
-				
-				<div class="row">
+            <!-- Privacy Policy -->
+            <div class="col-12 col-sm-6 col-md-4 mb-5">
+                <div class="post-entry">
+                    <a href="#" class="post-thumbnail"><img src="images/top.jpg" alt="Image" class="img-fluid"></a>
+                    <div class="post-content-entry">
+                        <h3><a href="#" data-bs-toggle="modal" data-bs-target="#privacyModal">Privacy Policy</a></h3>
+                        <div class="meta">
+                            <span>by <a href="#">Admin</a></span> <span>on <a href="#">March 7, 2025</a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-					<div class="col-12 col-sm-6 col-md-4 mb-5">
-						<div class="post-entry">
-							<a href="#" class="post-thumbnail"><img src="images/white.jpg" alt="Image" class="img-fluid"></a>
-							<div class="post-content-entry">
-								<h3><a href="#">First Time Home Owner Ideas</a></h3>
-								<div class="meta">
-									<span>by <a href="#">Kristin Watson</a></span> <span>on <a href="#">Dec 19, 2021</a></span>
-								</div>
-							</div>
-						</div>
-					</div>
+            
+        <!-- Add the links to Terms and Privacy here -->
+        <div class="row">
+            <div class="col-6 text-center mt-4">
+                <p>By signing up, you agree to our <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">Terms of Use</a> and <a href="#" data-bs-toggle="modal" data-bs-target="#privacyModal">Privacy Policy</a>.</p>
+            </div>
+        </div>
+    </div>
+</div>
 
-					<div class="col-12 col-sm-6 col-md-4 mb-5">
-						<div class="post-entry">
-							<a href="#" class="post-thumbnail"><img src="images/top.jpg" alt="Image" class="img-fluid"></a>
-							<div class="post-content-entry">
-								<h3><a href="#">How To Keep Your Craftifyture Clean</a></h3>
-								<div class="meta">
-									<span>by <a href="#">Robert Fox</a></span> <span>on <a href="#">Dec 15, 2021</a></span>
-								</div>
-							</div>
-						</div>
-					</div>
+<!-- Terms of Use Modal -->
+<div class="modal" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="termsModalLabel">Terms of Use</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h5>1. Introduction</h5>
+        <p>Welcome to CUSTOMIZE-VIP  Website. By accessing or using our services, you agree to comply with and be bound by these Terms of Use. If you do not agree to these terms, please do not use our services.</p>
 
-					<div class="col-12 col-sm-6 col-md-4 mb-5">
-						<div class="post-entry">
-							<a href="#" class="post-thumbnail"><img src="images/plain.jpg" alt="Image" class="img-fluid"></a>
-							<div class="post-content-entry">
-								<h3><a href="#">Small Space Craftifyture Apartment Ideas</a></h3>
-								<div class="meta">
-									<span>by <a href="#">Kristin Watson</a></span> <span>on <a href="#">Dec 12, 2021</a></span>
-								</div>
-							</div>
-						</div>
-					</div>
+        <h5>2. User Responsibilities</h5>
+        <p>Users are responsible for maintaining the confidentiality of their account and passwords. You agree to notify us immediately of any unauthorized access to your account.</p>
 
-					<div class="col-12 col-sm-6 col-md-4 mb-5">
-						<div class="post-entry">
-							<a href="#" class="post-thumbnail"><img src="images/white.jpg" alt="Image" class="img-fluid"></a>
-							<div class="post-content-entry">
-								<h3><a href="#">First Time Home Owner Ideas</a></h3>
-								<div class="meta">
-									<span>by <a href="#">Kristin Watson</a></span> <span>on <a href="#">Dec 19, 2021</a></span>
-								</div>
-							</div>
-						</div>
-					</div>
+        <h5>3. Content Ownership</h5>
+        <p>All content provided on this website is the property of CUSTOMIZE-VIP  Website. You may not use, modify, or distribute this content without permission.</p>
 
-					<div class="col-12 col-sm-6 col-md-4 mb-5">
-						<div class="post-entry">
-							<a href="#" class="post-thumbnail"><img src="images/top.jpg" alt="Image" class="img-fluid"></a>
-							<div class="post-content-entry">
-								<h3><a href="#">How To Keep Your Craftifyture Clean</a></h3>
-								<div class="meta">
-									<span>by <a href="#">Robert Fox</a></span> <span>on <a href="#">Dec 15, 2021</a></span>
-								</div>
-							</div>
-						</div>
-					</div>
+        <h5>4. Limitation of Liability</h5>
+        <p>CUSTOMIZE-VIP  Website is not liable for any damages arising from the use of the website or the inability to use the website.</p>
 
-					<div class="col-12 col-sm-6 col-md-4 mb-5">
-						<div class="post-entry">
-							<a href="#" class="post-thumbnail"><img src="images/plain.jpg" alt="Image" class="img-fluid"></a>
-							<div class="post-content-entry">
-								<h3><a href="#">Small Space Craftifyture Apartment Ideas</a></h3>
-								<div class="meta">
-									<span>by <a href="#">Kristin Watson</a></span> <span>on <a href="#">Dec 12, 2021</a></span>
-								</div>
-							</div>
-						</div>
-					</div>
+        <h5>5. Governing Law</h5>
+        <p>These Terms of Use are governed by the laws of CUSTOMIZE-VIP  Website.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-					<div class="col-12 col-sm-6 col-md-4 mb-5">
-						<div class="post-entry">
-							<a href="#" class="post-thumbnail"><img src="images/white.jpg" alt="Image" class="img-fluid"></a>
-							<div class="post-content-entry">
-								<h3><a href="#">First Time Home Owner Ideas</a></h3>
-								<div class="meta">
-									<span>by <a href="#">Kristin Watson</a></span> <span>on <a href="#">Dec 19, 2021</a></span>
-								</div>
-							</div>
-						</div>
-					</div>
+<!-- Privacy Policy Modal -->
+<div class="modal" id="privacyModal" tabindex="-1" aria-labelledby="privacyModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="privacyModalLabel">Privacy Policy</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h5>1. Introduction</h5>
+        <p>Your privacy is important to us. This Privacy Policy outlines how we collect, use, and protect your personal data when you visit or use CUSTOMIZE-VIP  Website.</p>
 
-					<div class="col-12 col-sm-6 col-md-4 mb-5">
-						<div class="post-entry">
-							<a href="#" class="post-thumbnail"><img src="images/top.jpg" alt="Image" class="img-fluid"></a>
-							<div class="post-content-entry">
-								<h3><a href="#">How To Keep Your Craftifyture Clean</a></h3>
-								<div class="meta">
-									<span>by <a href="#">Robert Fox</a></span> <span>on <a href="#">Dec 15, 2021</a></span>
-								</div>
-							</div>
-						</div>
-					</div>
+        <h5>2. Data Collection</h5>
+        <p>We collect personal information such as your name, and email address  information when you register or make purchases on our website.</p>
 
-					<div class="col-12 col-sm-6 col-md-4 mb-5">
-						<div class="post-entry">
-							<a href="#" class="post-thumbnail"><img src="images/plain.jpg " alt="Image" class="img-fluid"></a>
-							<div class="post-content-entry">
-								<h3><a href="#">Small Space Craftifyture Apartment Ideas</a></h3>
-								<div class="meta">
-									<span>by <a href="#">Kristin Watson</a></span> <span>on <a href="#">Dec 12, 2021</a></span>
-								</div>
-							</div>
-						</div>
-					</div>
+        <h5>3. Data Usage</h5>
+        <p>Your personal information will be used to process your orders, communicate with you, and improve our services.</p>
 
-				</div>
-			</div>
-		</div>
-		<!-- End Singin Section -->	
+        <h5>4. Data Protection</h5>
+        <p>We take reasonable steps to protect your personal data. However, we cannot guarantee its complete security.</p>
+
+        <h5>5. Cookies</h5>
+        <p>We use cookies to improve the user experience on our website. By using our services, you consent to our use of cookies.</p>
+
+        <h5>6. Sharing of Data</h5>
+        <p>We do not sell or share your personal information with third parties except as necessary to fulfill your orders or as required by law.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 		
 

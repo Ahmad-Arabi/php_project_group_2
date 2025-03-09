@@ -1,6 +1,5 @@
 <?php
 require_once "../../includes/database/config.php";
-
 $query = "SELECT 
             products.id, 
             products.category_id, 
@@ -16,8 +15,25 @@ $query = "SELECT
           WHERE products.is_active = 1";
 
 if (isset($_GET['categories']) && !empty($_GET['categories'])) {
-    $categoryIds = implode(",", $_GET['categories']); 
-    $query .= " AND products.category_id IN ($categoryIds)"; 
+    $categoryIds = implode(",", $_GET['categories']);
+    $query .= " AND products.category_id IN ($categoryIds)";
+}
+
+if (isset($_GET['price_range'])) {
+    switch ($_GET['price_range']) {
+        case '1': 
+            $query .= " AND products.price < 50";
+            break;
+        case '2': 
+            $query .= " AND products.price BETWEEN 50 AND 100";
+            break;
+        case '3': 
+            $query .= " AND products.price BETWEEN 100 AND 200";
+            break;
+        case '4': 
+            $query .= " AND products.price > 200";
+            break;
+    }
 }
 
 try {
@@ -27,6 +43,7 @@ try {
     echo "Error fetching products: " . $e->getMessage();
     $products = [];
 }
+
 ?>
 
 
@@ -48,7 +65,6 @@ try {
 		<link href="css/tiny-slider.css" rel="stylesheet">
 		<link href="css/style.css" rel="stylesheet">
 		<link href="css/Filter.css" rel="stylesheet">
-
 		<title>Craftify Free Bootstrap 5 Template for Craftifyture and Interior Design Websites by Untree.co </title>
 	</head>
 
@@ -67,13 +83,15 @@ try {
 				<div class="collapse navbar-collapse" id="navbarsCraftify">
 					<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
 						<li class="nav-item">
-							<a class="nav-link" href="index.html">Home</a>
+							<a class="nav-link" href="index.php">Home</a>
 						</li>
 						<li class="active"><a class="nav-link" href="shop.php">Shop</a></li>
 
 						<li><a class="nav-link" href="about.html">About us</a></li>
 						<li><a class="nav-link" href="services.html">Services</a></li>
 						<li><a class="nav-link" href="Singin.html">Sing in</a></li>
+						<li><a class="nav-link" href="policy.php">Privacy Policy</a></li>
+
 						<li><a class="nav-link" href="contact.php">Contact us</a></li>
 					</ul>
 
@@ -107,10 +125,8 @@ try {
 				</div>
 			</div>
 		<!-- End Hero Section -->
-
-		
-<!-- Start Filter Categories -->
-		<form method="GET" action="shop.php" class="filter-form">
+<!-- Start Filter Price -->
+<form method="GET" action="shop.php" class="filter-form">
     <?php
     $query = "SELECT * FROM categories WHERE is_active = 1";
     $stmt = $pdo->prepare($query);
@@ -119,6 +135,7 @@ try {
     ?>
     
     <div class="filter-container text-center">
+        <!-- Start Filter Category-->
         <?php foreach ($categories as $category): ?>
             <div class="custom-control custom-checkbox custom-control-inline">
                 <input type="checkbox" class="custom-control-input" id="category-<?= $category['id']; ?>" name="categories[]" value="<?= $category['id']; ?>" 
@@ -127,10 +144,43 @@ try {
                 <label class="custom-control-label" for="category-<?= $category['id']; ?>"><?= htmlspecialchars($category['name']); ?></label>
             </div>
         <?php endforeach; ?>
+        <!-- End Filter Category-->
+
+        <!-- Radio Buttons -->
+        <div class="price-filter">
+            <p><strong>Filter by Price:</strong></p>
+            
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" class="custom-control-input" id="price-1" name="price_range" value="1" 
+                <?php if (isset($_GET['price_range']) && $_GET['price_range'] == '1') echo 'checked'; ?>
+                onchange="this.form.submit()">
+                <label class="custom-control-label" for="price-1">Under $50</label>
+            </div>
+            
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" class="custom-control-input" id="price-2" name="price_range" value="2" 
+                <?php if (isset($_GET['price_range']) && $_GET['price_range'] == '2') echo 'checked'; ?>
+                onchange="this.form.submit()">
+                <label class="custom-control-label" for="price-2">$50 - $100</label>
+            </div>
+            
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" class="custom-control-input" id="price-3" name="price_range" value="3" 
+                <?php if (isset($_GET['price_range']) && $_GET['price_range'] == '3') echo 'checked'; ?>
+                onchange="this.form.submit()">
+                <label class="custom-control-label" for="price-3">$100 - $200</label>
+            </div>
+            
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" class="custom-control-input" id="price-4" name="price_range" value="4" 
+                <?php if (isset($_GET['price_range']) && $_GET['price_range'] == '4') echo 'checked'; ?>
+                onchange="this.form.submit()">
+                <label class="custom-control-label" for="price-4">Above $200</label>
+            </div>
+        </div>
     </div>
 </form>
-		<!-- End Filter Categories -->
-
+<!-- End Filter Price -->
 
 
 </div>
@@ -147,17 +197,16 @@ try {
             <!-- Start Column -->
             <div class="col-12 col-md-4 col-lg-3 mb-5">
 			
-           <a class="product-item" href="../../admin/product/product_details.php?id=<?= $product['id'] ?>">
+           <a class="product-item" href="/E_commerce_PHP/admin/product/product_details.php?id=<?= $product['id'] ?>">
 
-						<img src="/E_commerce_PHP/php_project_group_2/admin/product/uploads/product_images/<?php echo htmlspecialchars($product['product_image']); ?>" class="img-fluid product-thumbnail" alt="<?php echo htmlspecialchars($product['name']); ?>">
+						<img src="/E_commerce_PHP/admin/product/uploads/product_images/<?php echo htmlspecialchars($product['product_image']); ?>" class="img-fluid product-thumbnail" alt="<?php echo htmlspecialchars($product['name']); ?>">
 						
 						<h3 class="product-title"><?php echo htmlspecialchars($product['name']); ?></h3>
 						
 						<strong class="product-price"><?php echo '$' . number_format($product['price'], 2); ?></strong>
 
 						<span class="icon-cross">
-						<img src="../../public/furni-ed/images/icon_plus.png" class="img-fluid" alt="cross">
-							
+						<img src="/E_commerce_PHP/public/furni-ed/images/icon_plus.png" class="img-fluid" alt="cross">
 						</span>
                 </a>
             </div>

@@ -30,9 +30,8 @@ $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Category Management</title>
-    <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-
+    <link href="../admin/category/style.css" ref="stylesheet">
 
 <!-- Bootstrap CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -76,8 +75,11 @@ $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                     <td>
                     <a href="edit_category.php?page=edit_category&id=<?php echo $category['id']; ?>" class="btn btn-sm btn-primary"> <i class="bi bi-pencil"></i></a>
-                    
-                    <a href="javascript:void(0);" class="btn btn-sm btn-danger delete-category-btn" data-id="<?php echo $category['id']; ?>"> <i class="bi bi-trash"></i></a>
+                    <a href="javascript:void(0);" class="btn btn-sm btn-danger delete-category-btn" data-id="<?php echo $category['id']; ?>"> 
+                    <i class="bi bi-trash"></i>
+                    </a>
+                    </a>
+                    </a>
                     <?php if ($category['is_active']): ?>
                         <a href="category.php?page=category&action=deactivate&id=<?php echo $category['id']; ?>" class="btn btn-sm btn-warning"><i class="bi bi-x-circle-fill"></i></a>
                     <?php else: ?>
@@ -94,8 +96,7 @@ $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </div>
 
 
-
-<!-- Delete Category Modal -->
+<!-- Delete Category  -->
 <div class="modal fade" id="deletecategoryModal" tabindex="-1" role="dialog" aria-labelledby="deletecategoryModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -110,36 +111,37 @@ $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </form>
       </div>
       <div class="modal-footer">
-        <!-- Use data-bs-dismiss to close the modal -->
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-        <button type="button" class="btn btn-danger" onclick="document.getElementById('deleteCategoryForm').submit();">Yes</button>
+        <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Yes</button>
       </div>
     </div>
   </div>
 </div>
-  </div>
-  </main>
-  </div>
-</div>
-                
-   <!-- jQuery -->
-   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- JavaScript Code -->
-    <script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- JavaScript Code -->
+<script>
 $(document).ready(function() {
     $('.delete-category-btn').click(function(e) {
         e.preventDefault();
-        
-        var categoryId = $(this).data('id'); 
-        console.log("Category Id: ", categoryId);  
-        
-        if (categoryId) {  
-            $('#category_id_input').val(categoryId);  
-            var modal = new bootstrap.Modal(document.getElementById('deletecategoryModal'));
+
+        var categoryId = $(this).data('id');
+        console.log("Category Id: ", categoryId);
+
+        if (categoryId) {
+            $('#category_id_input').val(categoryId);
+            var modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('deletecategoryModal'));
             modal.show();
         } else {
-            console.error("Category ID not found!");  
+            console.error("Category ID not found!");
         }
+    });
+
+    $('#confirmDeleteBtn').click(function() {
+        $('#deleteCategoryForm').submit();
     });
 });
 </script>

@@ -1,13 +1,12 @@
-<<<<<<< HEAD
-=======
-<!-- /*
-* Bootstrap 5
-* Template Name: Craftify
-* Template Author: Untree.co
-* Template URI: https://untree.co/
-* License: https://creativecommons.org/licenses/by/3.0/
-*/ -->
->>>>>>> 7455ddc9d976f641fd5c95f2e826a51c3e0c19d3
+<?php
+require_once "../../includes/database/config.php";
+
+$query = "SELECT category_image FROM categories WHERE is_active = 1";
+$stmt = $pdo->query($query);
+$images = $stmt->fetchAll(PDO::FETCH_ASSOC);
+?>
+
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -21,6 +20,8 @@
 		<!-- Bootstrap CSS -->
 		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
 		<link href="css/tiny-slider.css" rel="stylesheet">
 		<link href="css/style.css" rel="stylesheet">
 		<link rel="shortcut icon" href="store.png">
@@ -28,59 +29,92 @@
 	</head>
 
 	<body>
+<!-- Start Header/Navigation -->
+<nav class="custom-navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Craftify navigation bar">
 
-		<!-- Start Header/Navigation -->
-		<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Craftify navigation bar">
+	<div class="container">
+		<a class="navbar-brand" href="index.html">Craftify<span>.</span></a>
 
-			<div class="container">
-				<a class="navbar-brand" href="index.html">Craftify<span>.</span></a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsCraftify" aria-controls="navbarsCraftify" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
 
-				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsCraftify" aria-controls="navbarsCraftify" aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
+		<div class="collapse navbar-collapse" id="navbarsCraftify">
+			<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+				<li class="nav-item active">
+					<a class="nav-link" href="index.php">Home</a>
+				</li>
+				<li><a class="nav-link" href="shop.php">Shop</a></li>
+				<li><a class="nav-link" href="about.html">About us</a></li>
+				<li><a class="nav-link" href="services.html">Services</a></li>
+				<li><a class="nav-link" href="Singin.html">Sing in</a></li>
+				<li><a class="nav-link" href="policy.php">Privacy Policy</a></li>
+				<li><a class="nav-link" href="contact.php">Contact us</a></li>
+			</ul>
 
-				<div class="collapse navbar-collapse" id="navbarsCraftify">
-					<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
-						<li class="nav-item active">
-							<a class="nav-link" href="index.html">Home</a>
-						</li>
-						<li><a class="nav-link" href="shop.html">Shop</a></li>
-						<li><a class="nav-link" href="about.html">About us</a></li>
-						<li><a class="nav-link" href="services.html">Services</a></li>
-						<li><a class="nav-link" href="Singin.html">Sing in</a></li>
-						<li><a class="nav-link" href="contact.html">Contact us</a></li>
-					</ul>
+			<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+				<li><a class="nav-link" href="#"><img src="images/user.svg"></a></li>
+				<li><a class="nav-link" href="cart.html"><img src="images/cart.svg"></a></li>
+			</ul>
+		</div>
+	</div>
+		
+</nav>
+<!-- End Header/Navigation -->
 
-					<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-						<li><a class="nav-link" href="#"><img src="images/user.svg"></a></li>
-						<li><a class="nav-link" href="cart.html"><img src="images/cart.svg"></a></li>
-					</ul>
-				</div>
-			</div>
-				
-		</nav>
-		<!-- End Header/Navigation -->
+<!-- Start Search Bar -->
+<br>
+<div class="container mt-2">
+    <form class="d-flex" action="search_results.php" method="get">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query" required>
+        <button class="btn btn-outline-light" type="submit">Search</button>
+    </form>
+</div>
+
+<br>
+<!-- End Search Bar -->
+
 
 		<!-- Start Hero Section -->
-			<div class="hero">
-				<div class="container">
-					<div class="row justify-content-between">
-						<div class="col-lg-5">
-							<div class="intro-excerpt">
-								<h1>Modern Interior <span clsas="d-block">Design Studio</span></h1>
-								<p class="mb-4">Custom products that reflect your unique style, for personal use or gifts. Let us bring your ideas to life.</p>
-								<p><a href="" class="btn btn-secondary me-2">Shop Now</a><a href="#" class="btn btn-white-outline">Explore</a></p>
-							</div>
-						</div>
-						<div class="col-lg-7">
-							<div class="hero-img-wrap">
- 								<img src="images/pngtre.png" class="img-fluid">
- 							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		<!-- End Hero Section -->
+<div class="hero">
+    <div class="container">
+        <div class="row justify-content-between">
+            <div class="col-lg-5">
+                <div class="intro-excerpt">
+                    <h1>Modern Interior <span class="d-block">Design Studio</span></h1>
+                    <p class="mb-4">Custom products that reflect your unique style, for personal use or gifts. Let us bring your ideas to life.</p>
+                    <p><a href="" class="btn btn-secondary me-2">Shop Now</a><a href="#" class="btn btn-white-outline">Explore</a></p>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+                    <div class="carousel-inner">
+					<?php
+						$active = "active"; 
+						foreach ($images as $image) {
+							echo '<div class="carousel-item ' . $active . '">';
+							echo '<img src="../../admin/category/uploads/category_images/"' . $image['category_image'] . '" class="d-block w-100" alt="...">';
+							echo '</div>';
+							$active = "";
+						}
+					?>
+
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Hero Section -->
+
 
 		<!-- Start Product Section -->
 		<div class="product-section">
@@ -522,10 +556,12 @@
 		<!-- End Footer Section -->	
 
 
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
 		<script src="js/bootstrap.bundle.min.js"></script>
 		<script src="js/tiny-slider.js"></script>
 		<script src="js/custom.js"></script>
+
 	</body>
 
 </html>

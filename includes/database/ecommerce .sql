@@ -94,8 +94,6 @@ CREATE TABLE `products` (
   `price` DECIMAL(10,2) NOT NULL DEFAULT 0.00, 
   `custom_text` TEXT,
   `custom_text_color` VARCHAR(7),
-  `custom_font` VARCHAR(255),
-  `custom_image` VARCHAR(255),
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

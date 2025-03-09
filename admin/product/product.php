@@ -21,7 +21,7 @@ try {
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-  <link href="style.css" rel="stylesheet">
+  <link href="../admin/product/style.css" ref="stylesheet">
 
 </head>
 <body>

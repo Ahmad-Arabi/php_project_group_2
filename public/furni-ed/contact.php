@@ -43,6 +43,7 @@
 			<li><a class="nav-link" href="services.html">Services</a></li>
 			
 			<li class="active"><a class="nav-link" href="Singin.html">Sing in</a></li>
+			<li><a class="nav-link" href="policy.php">Privacy Policy</a></li>
 
 			<li><a class="nav-link" href="contact.php">Contact us</a></li>
 		</ul>
@@ -141,7 +142,6 @@
   // Initialize 
   emailjs.init("0rLjSZVRBy6SWKEww"); 
 
-
   document.getElementById("contactForm").addEventListener("submit", function(event) {
     event.preventDefault(); 
 
@@ -152,6 +152,14 @@
       showMessage("Please enter a valid email address.", "error");
       return;
     }
+
+    // Store form data in cookies
+    document.cookie = "fname=" + encodeURIComponent(document.getElementById("fname").value) + "; path=/";
+    document.cookie = "lname=" + encodeURIComponent(document.getElementById("lname").value) + "; path=/";
+    document.cookie = "phone=" + encodeURIComponent(document.getElementById("phone").value) + "; path=/";
+    document.cookie = "email=" + encodeURIComponent(email) + "; path=/";
+    document.cookie = "subject=" + encodeURIComponent(document.getElementById("subject").value) + "; path=/";
+    document.cookie = "message=" + encodeURIComponent(document.getElementById("messages").value) + "; path=/";
 
     const formData = {
       fname: document.getElementById("fname").value,
@@ -168,7 +176,35 @@
       }, function(error) {
         showMessage("Error sending message. Please try again.", "error");
       });
+});
+window.onload = function() {
+  // Retrieve cookies and populate the form
+  const cookies = document.cookie.split("; ");
+  cookies.forEach(cookie => {
+    const [name, value] = cookie.split("=");
+    switch (name) {
+      case "fname":
+        document.getElementById("fname").value = decodeURIComponent(value);
+        break;
+      case "lname":
+        document.getElementById("lname").value = decodeURIComponent(value);
+        break;
+      case "phone":
+        document.getElementById("phone").value = decodeURIComponent(value);
+        break;
+      case "email":
+        document.getElementById("email").value = decodeURIComponent(value);
+        break;
+      case "subject":
+        document.getElementById("subject").value = decodeURIComponent(value);
+        break;
+      case "message":
+        document.getElementById("messages").value = decodeURIComponent(value);
+        break;
+    }
   });
+};
+
 
   function showMessage(message, type) {
     var messageDiv = document.getElementById("message");

@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['product_id'])) {
             unlink('uploads/product_images/' . $product_image);
         }
 
-        header("Location: /E_commerce_PHP/php_project_group_2/admin/product/product.php");
+        header("Location: /E_commerce_PHP/admin/product/product.php");
         exit();
     } catch (PDOException $e) {
         echo "Error deleting product: " . $e->getMessage();
