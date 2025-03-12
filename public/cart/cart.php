@@ -66,7 +66,7 @@ $order_items = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <div class="container">
       <div class="row">
         <?php if (empty($order_items)): ?>
-          <div class="text-center w-100"><h2>Your cart is empty.</h2></div>
+          <div class="text-center w-100"><h4>Your cart is empty.</h4></div>
         <?php else: ?>
           <!-- Set the form action to update_cart.php -->
           <form class="<?php echo empty($order_items) ? 'col-md-12' : 'col-md-8'; ?>" method="post" action="update_cart.php">
