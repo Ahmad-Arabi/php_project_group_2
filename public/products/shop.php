@@ -87,13 +87,13 @@ try {
 							</div>
 						</div>
                               <!--slider product  -->
-        <div class="product-slider-container mt-4">
+        <div class="product-slider-container mt-0 ">
     <div class="product-slider d-flex justify-content-end mx-auto">
         <?php
         $stmt = $pdo->query("SELECT id, name, image FROM products WHERE is_active = 1 LIMIT 10");
         while ($product = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
             <div class="slider_products">
-                <img  src="../../admin/product/uploads/product_images/<?= htmlspecialchars($product['image']); ?>" alt="<?= htmlspecialchars($product['name']); ?>">
+                <img  src="../../admin/product/uploads/product_images/<?= htmlspecialchars($product['image']); ?>" alt="<?= htmlspecialchars($product['name']); ?> w-50">
                 <p><?= htmlspecialchars($product['name']); ?></p>
             </div>
         <?php endwhile; ?>
